@@ -1,0 +1,15 @@
+<mat-toolbar>
+  <mat-toolbar-row [fxFlex]="" fxLayoutAlign="space-between center">
+    <a href="https://github.com/angularexample" title="https://github.com/angularexample">
+      <img alt="AngularExample Logo" class="xxx-header-logo" src="/assets/images/angular-example-logo.svg">
+    </a>
+    <span class="xxx-header-title">StackExchange Search</span>
+    <span [fxHide.gt-xs]="true" fxShow="true">&nbsp;</span>
+    <xxx-search-box [fxHide.lt-sm]="true" [fxLayout]="row" fxLayoutAlign="end center"
+                    fxShow=”true”></xxx-search-box>
+  </mat-toolbar-row>
+  <mat-toolbar-row [fxHide.gt-xs]="true" class="xxx-header-row-2" fxLayout="row" fxLayoutAlign="center end"
+                   fxShow="true">
+    <xxx-search-box></xxx-search-box>
+  </mat-toolbar-row>
+</mat-toolbar>

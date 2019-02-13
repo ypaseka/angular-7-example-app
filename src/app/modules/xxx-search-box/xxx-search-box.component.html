@@ -1,0 +1,7 @@
+<form #formcontrol="ngForm" (ngSubmit)="onSearchClick()">
+  <input [(ngModel)]="searchText" aria-level="enter search text" autofocus class="form-control" name="searchText"
+         placeholder="Enter Search Text" required="" type="search">
+  <button [disabled]="!formcontrol.form.valid" mat-icon-button title="Do Search">
+    <mat-icon>search</mat-icon>
+  </button>
+</form>

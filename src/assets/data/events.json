@@ -1,0 +1,31 @@
+{
+  "eventConfigs": [
+    {
+      "eventId": "searchBox.search",
+      "eventActions": [
+        {
+          "action": "broadcast",
+          "actionKey": "searchTextChange"
+        }
+      ]
+    },
+    {
+      "eventId": "questionsSearchRoute",
+      "eventActions": [
+        {
+          "action": "route",
+          "actionKey": "questionsRoute"
+        }
+      ]
+    },
+    {
+      "eventId": "answersRoute",
+      "eventActions": [
+        {
+          "action": "route",
+          "actionKey": "answersRoute"
+        }
+      ]
+    }
+  ]
+}
