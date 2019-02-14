@@ -1,11 +1,11 @@
-import {browser, by, element} from 'protractor';
+import {browser, by, element, ElementFinder} from 'protractor';
 
 export class HomePage {
   navigateTo() {
     return browser.get('/');
   }
 
-  getXxxHomeElement() {
-    return element(by.css('xxx-home'));
+  getXxxHomeElement(): ElementFinder {
+    return element(by.tagName('xxx-home'));
   }
 }
