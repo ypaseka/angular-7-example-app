@@ -7,8 +7,12 @@ describe('home page', () => {
     page = new HomePage();
   });
 
-  it('should xxx-home element exist', () => {
-    page.navigateTo();
-    expect(page.getHomeElement).toBeDefined();
+  it('should be page element exists', () => {
+    expect(page.pageElement).toBeDefined();
+  });
+
+  it('should be search elements exists', () => {
+    expect(page.searchInputElement).toBeDefined();
+    expect(page.searchButtonElement).toBeDefined();
   });
 });

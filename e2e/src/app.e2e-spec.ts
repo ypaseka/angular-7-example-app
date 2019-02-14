@@ -7,11 +7,11 @@ describe('app root', () => {
     page = new AppPage();
   });
 
-  it('should xxx-app element exist', () => {
-    expect(page.getAppElement).toBeDefined();
+  it('should be page element exists', () => {
+    expect(page.pageElement).toBeDefined();
   });
 
-  it('should xxx-header element exist', () => {
-    expect(page.getHeaderElement).toBeDefined();
+  it('should be header element exists', () => {
+    expect(page.headerElement).toBeDefined();
   });
 });
