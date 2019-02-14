@@ -5,7 +5,7 @@ export class HomePage {
     return browser.get('/');
   }
 
-  getXxxHomeElement(): ElementFinder {
+  getHomeElement(): ElementFinder {
     return element(by.tagName('xxx-home'));
   }
 }

@@ -1,4 +1,4 @@
-import {AppPage} from './app.po';
+import {AppPage} from './app.page';
 
 describe('app root', () => {
   let page: AppPage;
@@ -8,10 +8,10 @@ describe('app root', () => {
   });
 
   it('should xxx-app element exist', () => {
-    expect(page.getXxxAppElement).toBeDefined();
+    expect(page.getAppElement).toBeDefined();
   });
 
   it('should xxx-header element exist', () => {
-    expect(page.getXxxHeaderElement).toBeDefined();
+    expect(page.getHeaderElement).toBeDefined();
   });
 });

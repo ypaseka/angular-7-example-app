@@ -5,7 +5,7 @@ export class PageNotFoundPage {
     return browser.get('badurl');
   }
 
-  getXxxPageNotFoundElement(): ElementFinder {
+  getPageNotFoundElement(): ElementFinder {
     return element(by.tagName('xxx-page-not-found'));
   }
 }

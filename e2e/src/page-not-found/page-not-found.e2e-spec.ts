@@ -1,4 +1,4 @@
-import {PageNotFoundPage} from './page-not-found.po';
+import {PageNotFoundPage} from './page-not-found.page';
 
 describe('page not found page', () => {
   let page: PageNotFoundPage;
@@ -9,6 +9,6 @@ describe('page not found page', () => {
 
   it('should xxx-page-not-found element exist', () => {
     page.navigateTo();
-    expect(page.getXxxPageNotFoundElement).toBeDefined();
+    expect(page.getPageNotFoundElement).toBeDefined();
   });
 });

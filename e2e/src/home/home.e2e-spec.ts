@@ -1,4 +1,4 @@
-import {HomePage} from './home.po';
+import {HomePage} from './home.page';
 
 describe('home page', () => {
   let page: HomePage;
@@ -9,6 +9,6 @@ describe('home page', () => {
 
   it('should xxx-home element exist', () => {
     page.navigateTo();
-    expect(page.getXxxHomeElement).toBeDefined();
+    expect(page.getHomeElement).toBeDefined();
   });
 });

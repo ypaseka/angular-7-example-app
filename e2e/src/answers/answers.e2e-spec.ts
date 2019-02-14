@@ -1,4 +1,4 @@
-import {AnswersPage} from './answers.po';
+import {AnswersPage} from './answers.page';
 
 describe('answers page', () => {
   let page: AnswersPage;
@@ -9,6 +9,6 @@ describe('answers page', () => {
 
   it('should xxx-stack-exchange-answers element exist', () => {
     page.navigateTo();
-    expect(page.getXxxStackExchangeAnswersElement).toBeDefined();
+    expect(page.getAnswersElement).toBeDefined();
   });
 });

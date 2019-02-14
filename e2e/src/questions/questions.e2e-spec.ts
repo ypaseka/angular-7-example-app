@@ -1,4 +1,4 @@
-import {QuestionsPage} from './questions.po';
+import {QuestionsPage} from './questions.page';
 
 describe('questions page', () => {
   let page: QuestionsPage;
@@ -9,6 +9,6 @@ describe('questions page', () => {
 
   it('should xxx-stack-exchange-questions element exist', () => {
     page.navigateTo();
-    expect(page.getXxxStackExchangeQuestionsElement).toBeDefined();
+    expect(page.getQuestionsElement).toBeDefined();
   });
 });

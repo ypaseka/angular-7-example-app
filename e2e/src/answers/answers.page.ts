@@ -5,7 +5,7 @@ export class AnswersPage {
     return browser.get('answers/x');
   }
 
-  getXxxStackExchangeAnswersElement(): ElementFinder {
+  getAnswersElement(): ElementFinder {
     return element(by.tagName('xxx-stack-exchange-answers'));
   }
 }
