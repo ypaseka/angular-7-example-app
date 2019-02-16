@@ -5,10 +5,10 @@ describe('page not found page', () => {
 
   beforeEach(() => {
     page = new PageNotFoundPage();
+    page.navigateTo();
   });
 
-  it('should xxx-page-not-found element exist', () => {
-    page.navigateTo();
-    expect(page.getPageNotFoundElement).toBeDefined();
+  it('should have correct text after navigation', () => {
+    expect(page.firstTextElement.getText()).toEqual('The page for this url address is not found.');
   });
 });

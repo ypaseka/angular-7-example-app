@@ -1,11 +1,13 @@
 import {browser, by, element, ElementFinder} from 'protractor';
 
 export class PageNotFoundPage {
-  navigateTo() {
-    return browser.get('badurl');
+  firstTextElement: ElementFinder;
+
+  constructor() {
+    this.firstTextElement = element.all(by.tagName('p')).first();
   }
 
-  getPageNotFoundElement(): ElementFinder {
-    return element(by.tagName('xxx-page-not-found'));
+  navigateTo() {
+    return browser.get('badurl');
   }
 }
