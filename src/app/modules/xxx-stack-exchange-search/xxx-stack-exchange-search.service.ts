@@ -40,7 +40,7 @@ export class XxxStackExchangeSearchService {
         }
       };
       this.xxxStateStoreService.putItem('questionsRoute', eventRoute);
-      this.xxxEventMgrService.handleEvent('questionsSearchRoute');
+      this.xxxEventMgrService.handleEvent('routeQuestions');
     }
   }
 }
