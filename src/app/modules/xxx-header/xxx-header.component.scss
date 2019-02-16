@@ -2,6 +2,7 @@
 
 :host mat-toolbar {
   background-color: $bg-color-header;
+  padding-top: .4rem;
 }
 
 .xxx-header-title {
@@ -9,9 +10,10 @@
 }
 
 .xxx-header-logo {
-  width: 13vw;
+  padding: .4rem;
   max-width: 4rem;
   min-width: 3rem;
+  width: 13vw;
 }
 
 .xxx-header-row-2 {
