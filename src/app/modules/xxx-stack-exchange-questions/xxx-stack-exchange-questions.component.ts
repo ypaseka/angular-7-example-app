@@ -23,7 +23,7 @@ export class XxxStackExchangeQuestionsComponent implements OnDestroy {
   questions: any = [];
   private apiKey = 'U4DMV*8nvpm3EOpvf69Rxw((';
   private requestedPage = 1;
-  private searchText: string;
+  private searchText = '';
   private subscriptionRouteParam: Subscription;
 
   constructor(
@@ -33,8 +33,7 @@ export class XxxStackExchangeQuestionsComponent implements OnDestroy {
       private xxxEventMgrService: XxxEventMgrService,
       private xxxStateStoreService: XxxStateStoreService
   ) {
-    this.requestedPage = 1;
-    this.getSearchText();
+    this.subscribeToRouteParams();
   }
 
   ngOnDestroy() {
@@ -69,13 +68,21 @@ export class XxxStackExchangeQuestionsComponent implements OnDestroy {
     this.xxxEventMgrService.handleEvent('answersRoute');
   }
 
-  private getSearchText() {
+  private subscribeToRouteParams() {
     this.subscriptionRouteParam = this.route.params.subscribe(params => {
-      this.searchText = params['id'];
-      if ((typeof this.searchText === 'string') && (this.searchText.length > 0)) {
-        this.getQuestions();
+      const searchText = params['id'];
+      if ((typeof searchText === 'string') && (searchText.length > 0)) {
+        this.processSearchText(searchText);
       }
     });
+  }
+
+  private processSearchText(searchText: string) {
+    if (searchText !== this.searchText) {
+      this.searchText = searchText;
+      this.requestedPage = 1;
+      this.getQuestions();
+    }
   }
 
   private getQuestions() {
