@@ -7,6 +7,7 @@ import {XxxAlertService} from '../../library/xxx-alert/xxx-alert.service';
 import {XxxAlertType} from '../../library/xxx-alert/xxx-alert.enum';
 import {XxxDataService} from '../../library/xxx-data/xxx-data.service';
 import {XxxEventMgrService} from '../../library/xxx-event-mgr/xxx-event-mgr.service';
+import {XxxStateStoreService} from '../../library/xxx-state-store/xxx-state-store.service';
 
 @Component({
   selector: 'xxx-stack-exchange-answers',
@@ -18,6 +19,7 @@ export class XxxStackExchangeAnswersComponent implements OnDestroy {
   answers: any = [];
   isBusy = false;
   isError = false;
+  isQuestions = false;
   isResult = false;
   question: any = {};
   private apiKey = 'U4DMV*8nvpm3EOpvf69Rxw((';
@@ -29,8 +31,10 @@ export class XxxStackExchangeAnswersComponent implements OnDestroy {
       private router: Router,
       private xxxAlertService: XxxAlertService,
       private xxxDataService: XxxDataService,
-      private xxxEventMgrService: XxxEventMgrService
+      private xxxEventMgrService: XxxEventMgrService,
+      private xxxStateStoreService: XxxStateStoreService
   ) {
+    this.checkForQuestions();
     this.getQuestionId();
   }
 
@@ -44,9 +48,14 @@ export class XxxStackExchangeAnswersComponent implements OnDestroy {
     });
   }
 
-  // TODO handle params
   onClickBackToQuestions() {
     this.xxxEventMgrService.handleEvent('routeQuestions');
+  }
+
+  private checkForQuestions() {
+    if (this.xxxStateStoreService.getItem('questionsRoute')) {
+      this.isQuestions = true;
+    }
   }
 
   private getQuestionId() {

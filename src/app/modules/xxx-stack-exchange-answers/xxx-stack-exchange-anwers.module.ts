@@ -8,6 +8,7 @@ import {XxxDataModule} from '../../library/xxx-data/xxx-data.module';
 import {XxxEventMgrModule} from '../../library/xxx-event-mgr/xxx-event-mgr.module';
 import {XxxStackExchangeAnswersComponent} from './xxx-stack-exchange-answers.component';
 import {XxxStackExchangeAnswersRoutingModule} from './xxx-stack-exchange-answers-routing.module';
+import {XxxStateStoreModule} from '../../library/xxx-state-store/xxx-state-store.module';
 
 @NgModule({
   declarations: [XxxStackExchangeAnswersComponent],
@@ -19,6 +20,7 @@ import {XxxStackExchangeAnswersRoutingModule} from './xxx-stack-exchange-answers
     XxxAlertModule,
     XxxDataModule,
     XxxEventMgrModule,
+    XxxStateStoreModule,
     XxxStackExchangeAnswersRoutingModule
   ]
 })
