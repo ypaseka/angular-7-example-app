@@ -7,6 +7,7 @@ import {By} from '@angular/platform-browser';
 import {MockXxxEventMgrService} from '../../library/xxx-event-mgr/mock-xxx-event-mgr.service';
 import {MockXxxStateStoreService} from '../../library/xxx-state-store/mock-xxx-state-store.service';
 import {XxxEventMgrService} from '../../library/xxx-event-mgr/xxx-event-mgr.service';
+import {XxxMessageService} from '../../library/xxx-message/xxx-message.service';
 import {XxxSearchBoxComponent} from './xxx-search-box.component';
 import {XxxStateStoreService} from '../../library/xxx-state-store/xxx-state-store.service';
 
@@ -17,6 +18,7 @@ describe('XxxSearchBoxComponent', () => {
   let spyEventMgrService: jasmine.Spy;
   let spyStateStoreService: jasmine.Spy;
   let xxxEventMgrService: XxxEventMgrService;
+  let xxxMessageService: XxxMessageService;
   let xxxStateStoreService: XxxStateStoreService;
 
   beforeEach(async(() => {
@@ -29,6 +31,7 @@ describe('XxxSearchBoxComponent', () => {
       ],
       providers: [
         {provide: XxxEventMgrService, useClass: MockXxxEventMgrService},
+        XxxMessageService,
         {provide: XxxStateStoreService, useClass: MockXxxStateStoreService}
       ]
     }).compileComponents();
@@ -43,6 +46,7 @@ describe('XxxSearchBoxComponent', () => {
     buttonElement = buttonDebugElement.nativeElement as HTMLButtonElement;
     xxxEventMgrService = TestBed.get(XxxEventMgrService);
     spyEventMgrService = spyOn(xxxEventMgrService, 'handleEvent');
+    xxxMessageService = TestBed.get(XxxMessageService);
     xxxStateStoreService = TestBed.get(XxxStateStoreService);
     spyStateStoreService = spyOn(xxxStateStoreService, 'putItem');
   });
