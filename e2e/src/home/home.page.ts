@@ -1,13 +1,13 @@
-import {by, element, ElementFinder} from 'protractor';
+import {browser, by, element, ElementFinder} from 'protractor';
 
 export class HomePage {
-  pageElement: ElementFinder;
-  searchButtonElement: ElementFinder;
-  searchInputElement: ElementFinder;
+  firstTextElement: ElementFinder;
 
   constructor() {
-    this.pageElement = element(by.tagName('xxx-home'));
-    this.searchButtonElement = element(by.css('xxx-search-box-button'));
-    this.searchInputElement = element(by.css('xxx-search-box-input'));
+    this.firstTextElement = element.all(by.tagName('p')).first();
+  }
+
+  navigateTo() {
+    return browser.get('/');
   }
 }

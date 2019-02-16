@@ -5,14 +5,10 @@ describe('home page', () => {
 
   beforeEach(() => {
     page = new HomePage();
+    page.navigateTo();
   });
 
-  it('should be page element exists', () => {
-    expect(page.pageElement).toBeDefined();
-  });
-
-  it('should be search elements exists', () => {
-    expect(page.searchInputElement).toBeDefined();
-    expect(page.searchButtonElement).toBeDefined();
+  it('should have correct text after navigation', () => {
+    expect(page.firstTextElement.getText()).toEqual('Welcome to Stack Exchange Search.');
   });
 });
