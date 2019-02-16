@@ -3,6 +3,9 @@ import {NgModule} from '@angular/core';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {MatProgressSpinnerModule} from '@angular/material';
 
+import {XxxAlertModule} from '../../library/xxx-alert/xxx-alert.module';
+import {XxxDataModule} from '../../library/xxx-data/xxx-data.module';
+import {XxxEventMgrModule} from '../../library/xxx-event-mgr/xxx-event-mgr.module';
 import {XxxStackExchangeAnswersComponent} from './xxx-stack-exchange-answers.component';
 import {XxxStackExchangeAnswersRoutingModule} from './xxx-stack-exchange-answers-routing.module';
 
@@ -13,6 +16,9 @@ import {XxxStackExchangeAnswersRoutingModule} from './xxx-stack-exchange-answers
     CommonModule,
     FlexLayoutModule,
     MatProgressSpinnerModule,
+    XxxAlertModule,
+    XxxDataModule,
+    XxxEventMgrModule,
     XxxStackExchangeAnswersRoutingModule
   ]
 })

@@ -1,10 +1,12 @@
 import {Component, OnDestroy} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 
 import {environment} from '../../../environments/environment';
 import {XxxAlertService} from '../../library/xxx-alert/xxx-alert.service';
+import {XxxAlertType} from '../../library/xxx-alert/xxx-alert.enum';
 import {XxxDataService} from '../../library/xxx-data/xxx-data.service';
+import {XxxEventMgrService} from '../../library/xxx-event-mgr/xxx-event-mgr.service';
 
 @Component({
   selector: 'xxx-stack-exchange-answers',
@@ -24,8 +26,11 @@ export class XxxStackExchangeAnswersComponent implements OnDestroy {
 
   constructor(
       private route: ActivatedRoute,
+      private router: Router,
       private xxxAlertService: XxxAlertService,
-      private xxxDataService: XxxDataService) {
+      private xxxDataService: XxxDataService,
+      private xxxEventMgrService: XxxEventMgrService
+  ) {
     this.getQuestionId();
   }
 
@@ -37,6 +42,11 @@ export class XxxStackExchangeAnswersComponent implements OnDestroy {
     return text.replace(/&#(\d+);/g, function (match, dec) {
       return String.fromCharCode(dec);
     });
+  }
+
+  // TODO handle params
+  onClickBackToQuestions() {
+    this.xxxEventMgrService.handleEvent('routeQuestions');
   }
 
   private getQuestionId() {
@@ -73,7 +83,7 @@ export class XxxStackExchangeAnswersComponent implements OnDestroy {
       this.getAnswers();
     } else {
       const warningMsg = 'Given Question Id Not Found';
-      this.xxxAlertService.openAlert('warn', warningMsg);
+      this.xxxAlertService.openAlert(XxxAlertType.WARN, warningMsg);
     }
   }
 
@@ -111,7 +121,7 @@ export class XxxStackExchangeAnswersComponent implements OnDestroy {
       this.isResult = true;
     } else {
       const warningMsg = 'No Answers Found For Given Question Id';
-      this.xxxAlertService.openAlert('warn', warningMsg);
+      this.xxxAlertService.openAlert(XxxAlertType.WARN, warningMsg);
     }
   }
 

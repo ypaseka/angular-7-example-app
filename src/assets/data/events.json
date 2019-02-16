@@ -10,7 +10,7 @@
       ]
     },
     {
-      "eventId": "questionsSearchRoute",
+      "eventId": "routeQuestions",
       "eventActions": [
         {
           "action": "route",
@@ -19,7 +19,16 @@
       ]
     },
     {
-      "eventId": "answersRoute",
+      "eventId": "questionsSearchDone",
+      "eventActions": [
+        {
+          "action": "broadcast",
+          "actionKey": "searchButtonEnable"
+        }
+      ]
+    },
+    {
+      "eventId": "routeAnswers",
       "eventActions": [
         {
           "action": "route",

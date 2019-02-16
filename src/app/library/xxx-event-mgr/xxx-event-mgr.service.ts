@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 
 import {environment} from '../../../environments/environment';
 import {XxxDataService} from '../xxx-data/xxx-data.service';
-import {XxxEventAction, XxxEventConfig} from './xxx-event-config.interface';
+import {XxxEventAction, XxxEventConfig, XxxEventRoute} from './xxx-event.interface';
 import {XxxMessage} from '../xxx-message/xxx-message';
 import {XxxMessageService} from '../xxx-message/xxx-message.service';
 import {XxxStateStoreService} from '../../library/xxx-state-store/xxx-state-store.service';
@@ -91,9 +91,9 @@ export class XxxEventMgrService {
 
   private routeAction(eventAction: XxxEventAction) {
     if (eventAction.hasOwnProperty('actionKey')) {
-      const url = this.xxxStateStoreService.getItem(eventAction.actionKey);
-      if ((typeof url === 'string') && url.length) {
-        this.router.navigate([url]);
+      const eventUrl: XxxEventRoute = this.xxxStateStoreService.getItem(eventAction.actionKey);
+      if ((typeof eventUrl === 'object') && eventUrl.url.length > 0) {
+        this.router.navigate(eventUrl.url, {queryParams: eventUrl.queryParams});
       }
     }
   }

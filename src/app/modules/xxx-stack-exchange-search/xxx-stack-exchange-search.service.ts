@@ -3,6 +3,7 @@ import {Subscription} from 'rxjs';
 
 import {environment} from '../../../environments/environment';
 import {XxxEventMgrService} from '../../library/xxx-event-mgr/xxx-event-mgr.service';
+import {XxxEventRoute} from '../../library/xxx-event-mgr/xxx-event.interface';
 import {XxxMessageService} from '../../library/xxx-message/xxx-message.service';
 import {XxxStateStoreService} from '../../library/xxx-state-store/xxx-state-store.service';
 
@@ -29,12 +30,16 @@ export class XxxStackExchangeSearchService {
   }
 
   private onSearchTextChange() {
-    const searchText = this.xxxStateStoreService.extractItem('searchText');
+    const searchText = this.xxxStateStoreService.getItem('searchText');
     if ((typeof searchText === 'string') && (searchText.length) && (searchText !== this.searchText)) {
       const encodedSearchText = encodeURI(searchText);
-      let url = environment.url.questions;
-      url += encodedSearchText;
-      this.xxxStateStoreService.putItem('questionsRoute', url);
+      const eventRoute: XxxEventRoute = {
+        url: [environment.url.questions],
+        queryParams: {
+          title: encodedSearchText
+        }
+      };
+      this.xxxStateStoreService.putItem('questionsRoute', eventRoute);
       this.xxxEventMgrService.handleEvent('questionsSearchRoute');
     }
   }

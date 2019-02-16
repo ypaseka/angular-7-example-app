@@ -2,6 +2,9 @@
   <mat-spinner></mat-spinner>
 </div>
 <div *ngIf="!isBusy&&!isError&&isResult">
+  <div class="xxx-back-to-questions">
+    <a (click)="onClickBackToQuestions()" [routerLink]="">Back to Questions</a>
+  </div>
   <div class="xxx-answer-question-container">
     <div class="xxx-question-title">{{decodeHtmlEntities(question.title)}}</div>
     <div>

@@ -4,7 +4,9 @@ import {Subscription} from 'rxjs';
 
 import {environment} from '../../../environments/environment';
 import {XxxAlertService} from '../../library/xxx-alert/xxx-alert.service';
+import {XxxAlertType} from '../../library/xxx-alert/xxx-alert.enum';
 import {XxxDataService} from '../../library/xxx-data/xxx-data.service';
+import {XxxEventRoute} from '../../library/xxx-event-mgr/xxx-event.interface';
 import {XxxEventMgrService} from '../../library/xxx-event-mgr/xxx-event-mgr.service';
 import {XxxStateStoreService} from '../../library/xxx-state-store/xxx-state-store.service';
 
@@ -15,15 +17,16 @@ import {XxxStateStoreService} from '../../library/xxx-state-store/xxx-state-stor
 })
 
 export class XxxStackExchangeQuestionsComponent implements OnDestroy {
-  currentPage = 1;
+  pageNumber: number = null;
   isMorePages = false;
   isBusy = false;
   isError = false;
   isResult = false;
   questions: any = [];
   private apiKey = 'U4DMV*8nvpm3EOpvf69Rxw((';
-  private requestedPage = 1;
-  private searchText = '';
+  private requestedPageNumber: number = null;
+  private requestedSearchText: string = null;
+  private searchText: string = null;
   private subscriptionRouteParam: Subscription;
 
   constructor(
@@ -47,40 +50,71 @@ export class XxxStackExchangeQuestionsComponent implements OnDestroy {
   }
 
   goToFirstPage() {
-    this.requestedPage = 1;
-    this.getQuestions();
+    const eventRoute: XxxEventRoute = {
+      url: [environment.url.questions],
+      queryParams: {
+        title: this.searchText
+      }
+    };
+    this.xxxStateStoreService.putItem('questionsRoute', eventRoute);
+    this.xxxEventMgrService.handleEvent('routeQuestions');
   }
 
   goToPreviousPage() {
-    this.requestedPage = --this.currentPage;
-    this.getQuestions();
+    const eventRoute: XxxEventRoute = {
+      url: [environment.url.questions],
+      queryParams: {
+        title: this.searchText,
+        page: (this.pageNumber > 2) ? this.pageNumber - 1 : null
+      }
+    };
+    this.xxxStateStoreService.putItem('questionsRoute', eventRoute);
+    this.xxxEventMgrService.handleEvent('routeQuestions');
   }
 
   goToNextPage() {
-    this.requestedPage = ++this.currentPage;
-    this.getQuestions();
+    const eventRoute: XxxEventRoute = {
+      url: [environment.url.questions],
+      queryParams: {
+        title: this.searchText,
+        page: this.pageNumber + 1
+      }
+    };
+    this.xxxStateStoreService.putItem('questionsRoute', eventRoute);
+    this.xxxEventMgrService.handleEvent('routeQuestions');
   }
 
   questionOnClick(questionId) {
-    let url = environment.url.answers;
-    url += questionId;
-    this.xxxStateStoreService.putItem('answersRoute', url);
-    this.xxxEventMgrService.handleEvent('answersRoute');
+    const eventRoute: XxxEventRoute = {
+      url: [environment.url.answers + '/' + questionId]
+    };
+    this.xxxStateStoreService.putItem('answersRoute', eventRoute);
+    this.xxxEventMgrService.handleEvent('routeAnswers');
   }
 
   private subscribeToRouteParams() {
-    this.subscriptionRouteParam = this.route.params.subscribe(params => {
-      const searchText = params['id'];
+    this.subscriptionRouteParam = this.route.queryParams.subscribe(params => {
+      const searchText = params['title'] || '';
+      const pageNumber = +params['page'] || 1;
       if ((typeof searchText === 'string') && (searchText.length > 0)) {
-        this.processSearchText(searchText);
+        this.processSearchQuery(searchText, pageNumber);
+      } else {
+        this.xxxAlertService.openAlert(XxxAlertType.WARN, 'Title missing. Try a new search.');
       }
     });
   }
 
-  private processSearchText(searchText: string) {
+  private processSearchQuery(searchText: string, pageNumber: number) {
+    let isChanged = false;
     if (searchText !== this.searchText) {
-      this.searchText = searchText;
-      this.requestedPage = 1;
+      isChanged = true;
+    }
+    if (pageNumber !== this.pageNumber) {
+      this.requestedPageNumber = pageNumber;
+      isChanged = true;
+    }
+    if (isChanged) {
+      this.requestedSearchText = searchText;
       this.getQuestions();
     }
   }
@@ -92,11 +126,11 @@ export class XxxStackExchangeQuestionsComponent implements OnDestroy {
     let url = environment.url.api;
     url += 'search/advanced';
     url += '?key=' + this.apiKey;
-    url += '&title=' + encodeURI(this.searchText);
+    url += '&title=' + encodeURI(this.requestedSearchText);
     url += '&answers=1';
     url += '&site=stackoverflow';
     url += '&filter=withbody';
-    url += '&page=' + this.requestedPage.toString();
+    url += '&page=' + this.requestedPageNumber.toString();
     url += '&order=desc';
     url += '&sort=votes';
     this.xxxDataService.getData(url)
@@ -111,19 +145,26 @@ export class XxxStackExchangeQuestionsComponent implements OnDestroy {
         && (result.items.length > 0)) {
       this.questions = result.items;
       this.isResult = true;
+      this.searchText = this.requestedSearchText;
+      this.pageNumber = this.requestedPageNumber;
     } else {
       const warningMsg = 'No Results Found';
-      this.xxxAlertService.openAlert('warn', warningMsg);
+      this.xxxAlertService.openAlert(XxxAlertType.WARN, warningMsg);
     }
     this.isMorePages = ((result.hasOwnProperty('has_more'))
         && (typeof result.has_more === 'boolean')
         && (result.has_more));
-    this.currentPage = this.requestedPage;
+    this.searchDone();
   }
 
   // Errors are handled by global interceptor.
   private onErrorGetQuestions(result) {
     this.isBusy = false;
     this.isError = true;
+    this.searchDone();
+  }
+
+  private searchDone() {
+    this.xxxEventMgrService.handleEvent('questionsSearchDone');
   }
 }

@@ -4,7 +4,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {XxxStackExchangeQuestionsComponent} from './xxx-stack-exchange-questions.component';
 
 const routes: Routes = [
-  {path: 'questions/:id', component: XxxStackExchangeQuestionsComponent},
+  {path: 'questions', component: XxxStackExchangeQuestionsComponent},
 ];
 
 @NgModule({

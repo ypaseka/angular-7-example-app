@@ -7,13 +7,13 @@
   </div>
   <div class="xxx-results-footer" fxLayout="row" fxLayoutAlign="end center">
     <span class="xxx-results-currrent-page-caption">Page</span>
-    <span class="xxx-results-currrent-page">{{currentPage}}</span>
+    <span class="xxx-results-currrent-page">{{pageNumber}}</span>
     <span class="xxx-results-paging" fxLayout="row" fxLayoutAlign="space-between center">
-    <button class="xxx-results-first-page" (click)="goToFirstPage()" [disabled]="currentPage===1" mat-icon-button
+    <button class="xxx-results-first-page" (click)="goToFirstPage()" [disabled]="pageNumber===1" mat-icon-button
             title="Go To First Page">
       <mat-icon>first_page</mat-icon>
     </button>
-      <button class="xxx-results-previous-page" (click)="goToPreviousPage()" [disabled]="currentPage===1"
+      <button class="xxx-results-previous-page" (click)="goToPreviousPage()" [disabled]="pageNumber===1"
               mat-icon-button title="Go To Previous Page">
     <mat-icon>chevron_left</mat-icon>
       </button>
