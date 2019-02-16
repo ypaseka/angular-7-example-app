@@ -1,3 +1,4 @@
+import {CommonModule} from '@angular/common';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {MatToolbarModule} from '@angular/material';
@@ -16,6 +17,7 @@ describe('XxxHeaderComponent', () => {
         XxxSearchBoxComponent
       ],
       imports: [
+        CommonModule,
         FlexLayoutModule,
         MatToolbarModule
       ]

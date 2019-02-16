@@ -4,12 +4,10 @@
       <img alt="AngularExample Logo" class="xxx-header-logo" src="/assets/images/angular-example-logo.svg">
     </a>
     <span class="xxx-header-title">StackExchange Search</span>
-    <span [fxHide.gt-xs]="true" fxShow="true">&nbsp;</span>
-    <xxx-search-box [fxHide.lt-sm]="true" [fxLayout]="row" fxLayoutAlign="end center"
-                    fxShow=”true”></xxx-search-box>
+    <span *ngIf="isMobileView">&nbsp;</span>
+    <xxx-search-box *ngIf="!isMobileView" [fxLayout]="row" fxLayoutAlign="end center"></xxx-search-box>
   </mat-toolbar-row>
-  <mat-toolbar-row [fxHide.gt-xs]="true" class="xxx-header-row-2" fxLayout="row" fxLayoutAlign="center end"
-                   fxShow="true">
+  <mat-toolbar-row *ngIf="isMobileView" class="xxx-header-row-2" fxLayout="row" fxLayoutAlign="center end">
     <xxx-search-box></xxx-search-box>
   </mat-toolbar-row>
 </mat-toolbar>
