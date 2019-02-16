@@ -5,6 +5,7 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {MockXxxDataService} from '../xxx-data/mock-xxx-data.service';
 import {MockXxxStateStoreService} from '../xxx-state-store/mock-xxx-state-store.service';
 import {XxxDataService} from '../xxx-data/xxx-data.service';
+import {XxxEventRoute} from './xxx-event.interface';
 import {XxxEventMgrService} from './xxx-event-mgr.service';
 import {XxxMessageService} from '../xxx-message/xxx-message.service';
 import {XxxStateStoreService} from '../xxx-state-store/xxx-state-store.service';
@@ -66,6 +67,13 @@ describe('XxxEventMgrService', () => {
         ]
       }
     ]
+  };
+
+  const mockEventRoute: XxxEventRoute = {
+    url: ['mock-url'],
+    queryParams: {
+      param1: 'value1'
+    }
   };
 
   beforeEach(async(() => {
@@ -149,25 +157,33 @@ describe('XxxEventMgrService', () => {
 
   it('should run handleEvent route', fakeAsync(() => {
     spyDataServiceGetData.and.returnValue(Promise.resolve(mockEventConfigs));
+    spyStateStoreGetItem.and.returnValue(mockEventRoute);
     createService();
     tick();
     xxxEventMgrService.handleEvent('eventRoute');
     expect(spyEventMgrHandleEvent).toHaveBeenCalled();
     expect(spyMessageServiceBroadcast).not.toHaveBeenCalled();
-    expect(router.navigate).toHaveBeenCalledWith(['stateValue']);
+    expect(router.navigate).toHaveBeenCalled();
+    const args = spyRouterNavigate.calls.mostRecent().args;
+    expect(args[0]).toEqual(['mock-url']);
+    expect(args[1]).toEqual({queryParams: {param1: 'value1'}});
   }));
 
   it('should run handleEvent broadcast and route', fakeAsync(() => {
     spyDataServiceGetData.and.returnValue(Promise.resolve(mockEventConfigs));
+    spyStateStoreGetItem.and.returnValue(mockEventRoute);
     createService();
     tick();
     xxxEventMgrService.handleEvent('eventBroadcastAndRoute');
     expect(spyEventMgrHandleEvent).toHaveBeenCalled();
     expect(spyMessageServiceBroadcast).toHaveBeenCalled();
-    const args = spyMessageServiceBroadcast.calls.mostRecent().args;
+    let args = spyMessageServiceBroadcast.calls.mostRecent().args;
     const messageKey = args[0].key;
     expect(messageKey).toBe('key-broadcast-2');
-    expect(router.navigate).toHaveBeenCalledWith(['stateValue']);
+    expect(router.navigate).toHaveBeenCalled();
+    args = spyRouterNavigate.calls.mostRecent().args;
+    expect(args[0]).toEqual(['mock-url']);
+    expect(args[1]).toEqual({queryParams: {param1: 'value1'}});
   }));
 
   it('should run getData with failure', fakeAsync(() => {
