@@ -12,8 +12,8 @@ import {MockXxxEventMgrService} from '../../library/xxx-event-mgr/mock-xxx-event
 import {MockXxxStateStoreService} from '../../library/xxx-state-store/mock-xxx-state-store.service';
 import {XxxAlertService} from '../../library/xxx-alert/xxx-alert.service';
 import {XxxDataService} from '../../library/xxx-data/xxx-data.service';
-import {XxxStackExchangeAnswersComponent} from './xxx-stack-exchange-answers.component';
 import {XxxEventMgrService} from '../../library/xxx-event-mgr/xxx-event-mgr.service';
+import {XxxStackExchangeAnswersComponent} from './xxx-stack-exchange-answers.component';
 import {XxxStateStoreService} from '../../library/xxx-state-store/xxx-state-store.service';
 
 describe('XxxStackExchangeAnswersComponent', () => {
@@ -21,8 +21,12 @@ describe('XxxStackExchangeAnswersComponent', () => {
   let fixture: ComponentFixture<XxxStackExchangeAnswersComponent>;
   let spyAlertService: jasmine.Spy;
   let spyDataService: jasmine.Spy;
+  let spyEventMgrService: jasmine.Spy;
+  let spyStateStoreService: jasmine.Spy;
   let xxxAlertService: XxxAlertService;
   let xxxDataService: XxxDataService;
+  let xxxEventMgrService: XxxEventMgrService;
+  let xxxStateStoreService: XxxStateStoreService;
 
   const mockQuestionData = {
     items: [
@@ -35,6 +39,11 @@ describe('XxxStackExchangeAnswersComponent', () => {
       {answer_id: 'A123'}
     ]
   };
+
+  function createComponent() {
+    fixture = TestBed.createComponent(XxxStackExchangeAnswersComponent);
+    component = fixture.componentInstance;
+  }
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -59,16 +68,15 @@ describe('XxxStackExchangeAnswersComponent', () => {
   }));
 
   beforeEach(() => {
-    xxxDataService = TestBed.get(XxxDataService);
-    spyDataService = spyOn(xxxDataService, 'getData').and.callThrough();
     xxxAlertService = TestBed.get(XxxAlertService);
     spyAlertService = spyOn(xxxAlertService, 'openAlert');
+    xxxDataService = TestBed.get(XxxDataService);
+    spyDataService = spyOn(xxxDataService, 'getData').and.callThrough();
+    xxxEventMgrService = TestBed.get(XxxEventMgrService);
+    spyEventMgrService = spyOn(xxxEventMgrService, 'handleEvent');
+    xxxStateStoreService = TestBed.get(XxxStateStoreService);
+    spyStateStoreService = spyOn(xxxStateStoreService, 'putItem');
   });
-
-  function createComponent() {
-    fixture = TestBed.createComponent(XxxStackExchangeAnswersComponent);
-    component = fixture.componentInstance;
-  }
 
   it('should create', fakeAsync(() => {
     createComponent();
