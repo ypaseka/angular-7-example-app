@@ -1,3 +1,4 @@
+import {browser} from 'protractor';
 import {AppPage} from './app.page';
 
 describe('app root', () => {
@@ -5,13 +6,20 @@ describe('app root', () => {
 
   beforeEach(() => {
     page = new AppPage();
+    page.navigateTo();
   });
 
-  it('should be page element exists', () => {
-    expect(page.pageElement).toBeDefined();
+  it('should be able to enter search text', () => {
+    page.searchInputElement.sendKeys('zz');
+    expect(page.searchInputElement.getAttribute('value')).toEqual('zz');
+    page.searchButtonElement.click();
   });
 
-  it('should be header element exists', () => {
-    expect(page.headerElement).toBeDefined();
+  it('should be after entering search text button click goes to questions page', () => {
+    page.searchInputElement.sendKeys('zz');
+    page.searchButtonElement.click();
+    browser.getCurrentUrl().then((url) => {
+      expect(url.indexOf('/questions/zz') !== -1).toBeTruthy();
+    });
   });
 });
