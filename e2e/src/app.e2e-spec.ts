@@ -12,7 +12,6 @@ describe('app root', () => {
   it('should be able to enter search text', () => {
     page.searchInputElement.sendKeys('zz');
     expect(page.searchInputElement.getAttribute('value')).toEqual('zz');
-    page.searchButtonElement.click();
   });
 
   it('should be after entering search text button click goes to questions page', () => {
