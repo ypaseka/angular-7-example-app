@@ -3,13 +3,18 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {MatButtonModule, MatIconModule, MatProgressSpinnerModule, MatSnackBarModule} from '@angular/material';
 import {ActivatedRoute} from '@angular/router';
+import {RouterTestingModule} from '@angular/router/testing';
 
 import {MockActivatedRoute, mockRouteParamId} from '../../../mocks/angular/mock-activated-route';
 import {MockXxxAlertService} from '../../library/xxx-alert/mock-xxx-alert.service';
 import {MockXxxDataService} from '../../library/xxx-data/mock-xxx-data.service';
+import {MockXxxEventMgrService} from '../../library/xxx-event-mgr/mock-xxx-event-mgr.service';
+import {MockXxxStateStoreService} from '../../library/xxx-state-store/mock-xxx-state-store.service';
 import {XxxAlertService} from '../../library/xxx-alert/xxx-alert.service';
 import {XxxDataService} from '../../library/xxx-data/xxx-data.service';
 import {XxxStackExchangeAnswersComponent} from './xxx-stack-exchange-answers.component';
+import {XxxEventMgrService} from '../../library/xxx-event-mgr/xxx-event-mgr.service';
+import {XxxStateStoreService} from '../../library/xxx-state-store/xxx-state-store.service';
 
 describe('XxxStackExchangeAnswersComponent', () => {
   let component: XxxStackExchangeAnswersComponent;
@@ -40,13 +45,16 @@ describe('XxxStackExchangeAnswersComponent', () => {
         MatButtonModule,
         MatIconModule,
         MatProgressSpinnerModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        RouterTestingModule
       ],
       providers: [
         {provide: ActivatedRoute, useClass: MockActivatedRoute},
         {provide: XxxAlertService, useClass: MockXxxAlertService},
         {provide: XxxDataService, useClass: MockXxxDataService},
-      ]
+        {provide: XxxEventMgrService, useClass: MockXxxEventMgrService},
+        {provide: XxxStateStoreService, useClass: MockXxxStateStoreService}
+        ]
     }).compileComponents();
   }));
 
