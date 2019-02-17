@@ -45,11 +45,27 @@ describe('XxxEventMgrService', () => {
         ]
       },
       {
+        eventId: 'eventBroadcastNoActionKey',
+        eventActions: [
+          {
+            action: 'broadcast'
+          }
+        ]
+      },
+      {
         eventId: 'eventRoute',
         eventActions: [
           {
             action: 'route',
             actionKey: 'key-route'
+          }
+        ]
+      },
+      {
+        eventId: 'eventRouteNoActionKey',
+        eventActions: [
+          {
+            action: 'route'
           }
         ]
       },
@@ -75,6 +91,8 @@ describe('XxxEventMgrService', () => {
       param1: 'value1'
     }
   };
+
+  const mockBadEventRoute: any = 'bad-event-route';
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -141,6 +159,15 @@ describe('XxxEventMgrService', () => {
     expect(messageKey).toBe('key-broadcast');
   }));
 
+  it('should run handleEvent broadcast with no actionKey', fakeAsync(() => {
+    spyDataServiceGetData.and.returnValue(Promise.resolve(mockEventConfigs));
+    createService();
+    tick();
+    xxxEventMgrService.handleEvent('eventBroadcastNoActionKey');
+    expect(spyEventMgrHandleEvent).toHaveBeenCalled();
+    expect(spyMessageServiceBroadcast).not.toHaveBeenCalled();
+  }));
+
   it('should run handleEvent broadcast with data', fakeAsync(() => {
     spyDataServiceGetData.and.returnValue(Promise.resolve(mockEventConfigs));
     createService();
@@ -167,6 +194,28 @@ describe('XxxEventMgrService', () => {
     const args = spyRouterNavigate.calls.mostRecent().args;
     expect(args[0]).toEqual(['mock-url']);
     expect(args[1]).toEqual({queryParams: {param1: 'value1'}});
+  }));
+
+  it('should run handleEvent route with no actionKey', fakeAsync(() => {
+    spyDataServiceGetData.and.returnValue(Promise.resolve(mockEventConfigs));
+    spyStateStoreGetItem.and.returnValue(mockEventRoute);
+    createService();
+    tick();
+    xxxEventMgrService.handleEvent('eventRouteNoActionKey');
+    expect(spyEventMgrHandleEvent).toHaveBeenCalled();
+    expect(spyMessageServiceBroadcast).not.toHaveBeenCalled();
+    expect(router.navigate).not.toHaveBeenCalled();
+  }));
+
+  it('should run handleEvent route with bad eventUrl', fakeAsync(() => {
+    spyDataServiceGetData.and.returnValue(Promise.resolve(mockEventConfigs));
+    spyStateStoreGetItem.and.returnValue(mockBadEventRoute);
+    createService();
+    tick();
+    xxxEventMgrService.handleEvent('eventRoute');
+    expect(spyEventMgrHandleEvent).toHaveBeenCalled();
+    expect(spyMessageServiceBroadcast).not.toHaveBeenCalled();
+    expect(router.navigate).not.toHaveBeenCalled();
   }));
 
   it('should run handleEvent broadcast and route', fakeAsync(() => {
