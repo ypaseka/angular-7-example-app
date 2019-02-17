@@ -10,7 +10,8 @@ import {XxxStateStoreService} from '../../library/xxx-state-store/xxx-state-stor
 
 describe('XxxStackExchangeSearchService', () => {
   let spyEventMgrHandleEvent: jasmine.Spy;
-  let spyStateStoreExtractItem: jasmine.Spy;
+  let spyStateStoreGetItem: jasmine.Spy;
+  let spyStateStorePutItem: jasmine.Spy;
   let xxxEventMgrService: XxxEventMgrService;
   let xxxMessageService: XxxMessageService;
   let xxxStackExchangeSearchService: XxxStackExchangeSearchService;
@@ -34,7 +35,8 @@ describe('XxxStackExchangeSearchService', () => {
     xxxStateStoreService = TestBed.get(XxxStateStoreService);
     spyEventMgrHandleEvent = spyOn(xxxEventMgrService, 'handleEvent');
     // state store needs to return different value each time for these tests
-    spyStateStoreExtractItem = spyOn(xxxStateStoreService, 'extractItem').and.returnValue(Math.random().toString());
+    spyStateStoreGetItem = spyOn(xxxStateStoreService, 'getItem').and.returnValue(Math.random().toString());
+    spyStateStorePutItem = spyOn(xxxStateStoreService, 'putItem');
   });
 
   it('should create service', () => {
@@ -45,7 +47,8 @@ describe('XxxStackExchangeSearchService', () => {
     const mockMessage = new XxxMessage('searchTextChange');
     xxxMessageService.broadcast(mockMessage);
     flush();
-    expect(spyStateStoreExtractItem).toHaveBeenCalled();
+    expect(spyStateStoreGetItem).toHaveBeenCalled();
+    expect(spyStateStorePutItem).toHaveBeenCalled();
     expect(spyEventMgrHandleEvent).toHaveBeenCalled();
   }));
 });
