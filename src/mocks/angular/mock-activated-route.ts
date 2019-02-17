@@ -1,7 +1,17 @@
 import {of} from 'rxjs';
 
-export const mockRouteParamId = 'id123';
+export const mockRouteParamId = 'id-test';
 
-export class MockActivatedRoute {
+export class MockActivatedRouteWithId {
   params = of({id: mockRouteParamId});
+}
+
+export const mockQueryParamTitle = 'title-test';
+export const mockQueryParamPage = '2';
+
+export class MockActivatedRouteWithQueryParms {
+  queryParams = of({
+    title: mockQueryParamTitle,
+    page: mockQueryParamPage
+  });
 }

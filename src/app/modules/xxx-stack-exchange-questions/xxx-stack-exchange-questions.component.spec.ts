@@ -5,7 +5,8 @@ import {MatButtonModule, MatIconModule, MatProgressSpinnerModule, MatSnackBarMod
 import {ActivatedRoute} from '@angular/router';
 import {RouterTestingModule} from '@angular/router/testing';
 
-import {MockActivatedRoute, mockRouteParamId} from '../../../mocks/angular/mock-activated-route';
+import {environment} from '../../../environments/environment';
+import {MockActivatedRouteWithQueryParms, mockQueryParamPage, mockQueryParamTitle} from '../../../mocks/angular/mock-activated-route';
 import {MockXxxAlertService} from '../../library/xxx-alert/mock-xxx-alert.service';
 import {MockXxxDataService} from '../../library/xxx-data/mock-xxx-data.service';
 import {MockXxxEventMgrService} from '../../library/xxx-event-mgr/mock-xxx-event-mgr.service';
@@ -13,8 +14,9 @@ import {MockXxxStateStoreService} from '../../library/xxx-state-store/mock-xxx-s
 import {XxxAlertService} from '../../library/xxx-alert/xxx-alert.service';
 import {XxxDataService} from '../../library/xxx-data/xxx-data.service';
 import {XxxEventMgrService} from '../../library/xxx-event-mgr/xxx-event-mgr.service';
-import {XxxStateStoreService} from '../../library/xxx-state-store/xxx-state-store.service';
 import {XxxStackExchangeQuestionsComponent} from './xxx-stack-exchange-questions.component';
+import {XxxStateStoreService} from '../../library/xxx-state-store/xxx-state-store.service';
+import {XxxEventRoute} from '../../library/xxx-event-mgr/xxx-event.interface';
 
 describe('XxxStackExchangeQuestionsComponent', () => {
   let component: XxxStackExchangeQuestionsComponent;
@@ -52,7 +54,7 @@ describe('XxxStackExchangeQuestionsComponent', () => {
         RouterTestingModule
       ],
       providers: [
-        {provide: ActivatedRoute, useClass: MockActivatedRoute},
+        {provide: ActivatedRoute, useClass: MockActivatedRouteWithQueryParms},
         {provide: XxxAlertService, useClass: MockXxxAlertService},
         {provide: XxxDataService, useClass: MockXxxDataService},
         {provide: XxxEventMgrService, useClass: MockXxxEventMgrService},
@@ -78,12 +80,21 @@ describe('XxxStackExchangeQuestionsComponent', () => {
     expect(component).toBeTruthy();
   }));
 
-  it('should get the search text from the route url id', fakeAsync(() => {
+  it('should get the title for search text from the route query param', fakeAsync(() => {
     createComponent();
     flush();
     expect(spyDataService).toHaveBeenCalled();
     const url: string = spyDataService.calls.mostRecent().args[0];
-    const isUrlCorrect = url.includes(mockRouteParamId);
+    const isUrlCorrect = url.includes(mockQueryParamTitle);
+    expect(isUrlCorrect).toBeTruthy();
+  }));
+
+  it('should get the page number from the route query param', fakeAsync(() => {
+    createComponent();
+    flush();
+    expect(spyDataService).toHaveBeenCalled();
+    const url: string = spyDataService.calls.mostRecent().args[0];
+    const isUrlCorrect = url.includes(mockQueryParamPage);
     expect(isUrlCorrect).toBeTruthy();
   }));
 
@@ -91,21 +102,21 @@ describe('XxxStackExchangeQuestionsComponent', () => {
     createComponent();
     component.goToFirstPage();
     flush();
-    expect(spyDataService).toHaveBeenCalled();
+    expect(spyEventMgrService).toHaveBeenCalled();
   }));
 
   it('should run goToNextPage', fakeAsync(() => {
     createComponent();
     component.goToNextPage();
     flush();
-    expect(spyDataService).toHaveBeenCalled();
+    expect(spyEventMgrService).toHaveBeenCalled();
   }));
 
   it('should run goToPreviousPage', fakeAsync(() => {
     createComponent();
     component.goToPreviousPage();
     flush();
-    expect(spyDataService).toHaveBeenCalled();
+    expect(spyEventMgrService).toHaveBeenCalled();
   }));
 
   it('should handle success on get questions not empty', fakeAsync(() => {
@@ -152,9 +163,13 @@ describe('XxxStackExchangeQuestionsComponent', () => {
     component.questionOnClick('xyz');
     flush();
     expect(spyStateStoreService).toHaveBeenCalled();
-    const url: string = spyStateStoreService.calls.mostRecent().args[1];
-    const isUrlCorrect = url.includes('xyz');
-    expect(isUrlCorrect).toBeTruthy();
+    const routeKey: string = spyStateStoreService.calls.all()[0].args[0];
+    expect(routeKey).toEqual('answersRoute');
+    const eventRoute: XxxEventRoute = spyStateStoreService.calls.mostRecent().args[1];
+    const url = eventRoute.url[0];
+    expect(url).toEqual(environment.url.answers + '/xyz');
     expect(spyEventMgrService).toHaveBeenCalled();
+    const eventId = spyEventMgrService.calls.all()[0].args[0];
+    expect(eventId).toEqual('routeAnswers');
   }));
 });

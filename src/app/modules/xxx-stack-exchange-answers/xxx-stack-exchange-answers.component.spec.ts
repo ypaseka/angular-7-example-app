@@ -5,7 +5,7 @@ import {MatButtonModule, MatIconModule, MatProgressSpinnerModule, MatSnackBarMod
 import {ActivatedRoute} from '@angular/router';
 import {RouterTestingModule} from '@angular/router/testing';
 
-import {MockActivatedRoute, mockRouteParamId} from '../../../mocks/angular/mock-activated-route';
+import {MockActivatedRouteWithId, mockRouteParamId} from '../../../mocks/angular/mock-activated-route';
 import {MockXxxAlertService} from '../../library/xxx-alert/mock-xxx-alert.service';
 import {MockXxxDataService} from '../../library/xxx-data/mock-xxx-data.service';
 import {MockXxxEventMgrService} from '../../library/xxx-event-mgr/mock-xxx-event-mgr.service';
@@ -58,12 +58,12 @@ describe('XxxStackExchangeAnswersComponent', () => {
         RouterTestingModule
       ],
       providers: [
-        {provide: ActivatedRoute, useClass: MockActivatedRoute},
+        {provide: ActivatedRoute, useClass: MockActivatedRouteWithId},
         {provide: XxxAlertService, useClass: MockXxxAlertService},
         {provide: XxxDataService, useClass: MockXxxDataService},
         {provide: XxxEventMgrService, useClass: MockXxxEventMgrService},
         {provide: XxxStateStoreService, useClass: MockXxxStateStoreService}
-        ]
+      ]
     }).compileComponents();
   }));
 
