@@ -53,7 +53,7 @@ describe('XxxDataService', () => {
     expect(result).toEqual(mockData);
   }));
 
-  it('should run getData and return promise error on error using http test', fakeAsync(() => {
+  it('should run getData and return promise error on error', fakeAsync(() => {
     let result: any;
     let testRequest: TestRequest;
     xxxDataService.getData(mockUrl).then((response: HttpResponse<any>) => {
@@ -65,5 +65,19 @@ describe('XxxDataService', () => {
     testRequest.error(mockError);
     tick();
     expect(result).toEqual(mockError);
+  }));
+
+  it('should run getData and return promise error on unwrapped error', fakeAsync(() => {
+    let result: any;
+    let testRequest: TestRequest;
+    xxxDataService.getData(mockUrl).then((response: HttpResponse<any>) => {
+      result = response;
+    }, (errorResponse: HttpErrorResponse) => {
+      result = errorResponse;
+    });
+    testRequest = httpMock.expectOne(mockUrl);
+    testRequest.error(null);
+    tick();
+    expect(result.statusText).toEqual('Unknown Error');
   }));
 });
