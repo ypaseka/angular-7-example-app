@@ -18,7 +18,7 @@ describe('app root', () => {
     page.searchInputElement.sendKeys('zz');
     page.searchButtonElement.click();
     browser.getCurrentUrl().then((url) => {
-      expect(url.indexOf('/questions/zz') !== -1).toBeTruthy();
+      expect(url.indexOf('/questions?title=zz') !== -1).toBeTruthy();
     });
   });
 });

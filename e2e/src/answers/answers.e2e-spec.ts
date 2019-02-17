@@ -7,8 +7,7 @@ describe('answers page', () => {
     page = new AnswersPage();
   });
 
-  it('should xxx-stack-exchange-answers element exist', () => {
-    page.navigateTo();
-    expect(page.getAnswersElement).toBeDefined();
+  it('should be page element exists', () => {
+    expect(page.pageElement).toBeDefined();
   });
 });

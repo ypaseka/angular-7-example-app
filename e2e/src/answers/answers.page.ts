@@ -1,11 +1,14 @@
 import {browser, by, element, ElementFinder} from 'protractor';
 
 export class AnswersPage {
-  navigateTo() {
-    return browser.get('answers/x');
+  pageElement: ElementFinder;
+
+  constructor() {
+    this.navigateTo();
+    this.pageElement = element(by.tagName('xxx-stack-exchange-answers'));
   }
 
-  getAnswersElement(): ElementFinder {
-    return element(by.tagName('xxx-stack-exchange-answers'));
+  navigateTo() {
+    return browser.get('answers/x');
   }
 }

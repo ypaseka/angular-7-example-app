@@ -5,10 +5,10 @@ describe('questions page', () => {
 
   beforeEach(() => {
     page = new QuestionsPage();
+    page.navigateTo();
   });
 
-  it('should xxx-stack-exchange-questions element exist', () => {
-    page.navigateTo();
-    expect(page.getQuestionsElement).toBeDefined();
+  it('should be page element exists', () => {
+    expect(page.pageElement).toBeDefined();
   });
 });
