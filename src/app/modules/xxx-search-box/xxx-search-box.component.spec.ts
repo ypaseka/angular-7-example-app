@@ -1,12 +1,14 @@
 import {DebugElement} from '@angular/core';
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {FormsModule} from '@angular/forms';
 import {MatButtonModule, MatIconModule} from '@angular/material';
 import {By} from '@angular/platform-browser';
+import {of} from 'rxjs';
 
 import {MockXxxEventMgrService} from '../../library/xxx-event-mgr/mock-xxx-event-mgr.service';
 import {MockXxxStateStoreService} from '../../library/xxx-state-store/mock-xxx-state-store.service';
 import {XxxEventMgrService} from '../../library/xxx-event-mgr/xxx-event-mgr.service';
+import {XxxMessage} from '../../library/xxx-message/xxx-message';
 import {XxxMessageService} from '../../library/xxx-message/xxx-message.service';
 import {XxxSearchBoxComponent} from './xxx-search-box.component';
 import {XxxStateStoreService} from '../../library/xxx-state-store/xxx-state-store.service';
@@ -15,6 +17,7 @@ describe('XxxSearchBoxComponent', () => {
   let buttonElement: HTMLButtonElement;
   let component: XxxSearchBoxComponent;
   let fixture: ComponentFixture<XxxSearchBoxComponent>;
+  let inputElement: HTMLInputElement;
   let spyEventMgrService: jasmine.Spy;
   let spyStateStoreService: jasmine.Spy;
   let xxxEventMgrService: XxxEventMgrService;
@@ -39,11 +42,14 @@ describe('XxxSearchBoxComponent', () => {
 
   beforeEach(() => {
     let buttonDebugElement: DebugElement;
+    let inputDebugElement: DebugElement;
 
     fixture = TestBed.createComponent(XxxSearchBoxComponent);
     component = fixture.componentInstance;
     buttonDebugElement = fixture.debugElement.query(By.css('button'));
     buttonElement = buttonDebugElement.nativeElement as HTMLButtonElement;
+    inputDebugElement = fixture.debugElement.query(By.css('input'));
+    inputElement = inputDebugElement.nativeElement as HTMLInputElement;
     xxxEventMgrService = TestBed.get(XxxEventMgrService);
     spyEventMgrService = spyOn(xxxEventMgrService, 'handleEvent');
     xxxMessageService = TestBed.get(XxxMessageService);
@@ -64,4 +70,11 @@ describe('XxxSearchBoxComponent', () => {
     buttonElement.click();
     expect(spyStateStoreService).toHaveBeenCalled();
   });
+
+  it('should enable button after message received', fakeAsync(() => {
+    xxxMessageService.broadcast(new XxxMessage('searchButtonEnable'));
+    tick();
+    fixture.detectChanges();
+    expect(component.isButtonDisabled).toBeFalsy();
+  }));
 });
