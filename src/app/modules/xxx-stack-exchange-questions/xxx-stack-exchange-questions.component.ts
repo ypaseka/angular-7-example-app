@@ -24,8 +24,6 @@ export class XxxStackExchangeQuestionsComponent implements OnDestroy {
   isResult = false;
   questions: any = [];
   private apiKey = 'U4DMV*8nvpm3EOpvf69Rxw((';
-  private requestedPageNumber: number = null;
-  private requestedSearchText: string = null;
   private searchText: string = null;
   private subscriptionRouteParam: Subscription;
 
@@ -107,14 +105,14 @@ export class XxxStackExchangeQuestionsComponent implements OnDestroy {
   private processSearchQuery(searchText: string, pageNumber: number) {
     let isChanged = false;
     if (searchText !== this.searchText) {
+      this.searchText = searchText;
       isChanged = true;
     }
     if (pageNumber !== this.pageNumber) {
-      this.requestedPageNumber = pageNumber;
+      this.pageNumber = pageNumber;
       isChanged = true;
     }
     if (isChanged) {
-      this.requestedSearchText = searchText;
       this.getQuestions();
     }
   }
@@ -126,11 +124,11 @@ export class XxxStackExchangeQuestionsComponent implements OnDestroy {
     let url = environment.url.api;
     url += 'search/advanced';
     url += '?key=' + this.apiKey;
-    url += '&title=' + encodeURI(this.requestedSearchText);
+    url += '&title=' + encodeURI(this.searchText);
     url += '&answers=1';
     url += '&site=stackoverflow';
     url += '&filter=withbody';
-    url += '&page=' + this.requestedPageNumber.toString();
+    url += '&page=' + this.pageNumber.toString();
     url += '&order=desc';
     url += '&sort=votes';
     this.xxxDataService.getData(url)
@@ -145,8 +143,6 @@ export class XxxStackExchangeQuestionsComponent implements OnDestroy {
         && (result.items.length > 0)) {
       this.questions = result.items;
       this.isResult = true;
-      this.searchText = this.requestedSearchText;
-      this.pageNumber = this.requestedPageNumber;
     } else {
       const warningMsg = 'No Results Found';
       this.xxxAlertService.openAlert(XxxAlertType.WARN, warningMsg);

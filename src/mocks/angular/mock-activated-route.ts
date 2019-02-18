@@ -7,7 +7,7 @@ export class MockActivatedRouteWithId {
 }
 
 export const mockQueryParamTitle = 'title-test';
-export const mockQueryParamPage = '2';
+export const mockQueryParamPage = '3';
 
 export class MockActivatedRouteWithQueryParms {
   queryParams = of({
