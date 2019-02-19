@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "stackexchange-api-example": {
+    "angular-7-example-app": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/stackexchange-api-example",
+            "outputPath": "dist/angular-7-example-app",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -61,18 +61,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "stackexchange-api-example:build"
+            "browserTarget": "angular-7-example-app:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "stackexchange-api-example:build:production"
+              "browserTarget": "angular-7-example-app:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "stackexchange-api-example:build"
+            "browserTarget": "angular-7-example-app:build"
           }
         },
         "test": {
@@ -111,7 +111,7 @@
         }
       }
     },
-    "stackexchange-api-example-e2e": {
+    "angular-7-example-app-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "prefix": "",
@@ -120,11 +120,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "stackexchange-api-example:serve"
+            "devServerTarget": "angular-7-example-app:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "stackexchange-api-example:serve:production"
+              "devServerTarget": "angular-7-example-app:serve:production"
             }
           }
         },
@@ -140,5 +140,5 @@
       }
     }
   },
-  "defaultProject": "stackexchange-api-example"
+  "defaultProject": "angular-7-example-app"
 }
