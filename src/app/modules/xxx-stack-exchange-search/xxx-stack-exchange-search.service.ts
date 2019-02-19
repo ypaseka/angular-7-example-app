@@ -12,7 +12,7 @@ import {XxxStateStoreService} from '../../library/xxx-state-store/xxx-state-stor
  */
 @Injectable()
 export class XxxStackExchangeSearchService {
-  private searchText = '';
+  private searchText = null;
   private subscriptionSearchTextChange: Subscription;
 
   constructor(
@@ -31,7 +31,7 @@ export class XxxStackExchangeSearchService {
 
   private onSearchTextChange() {
     const searchText = this.xxxStateStoreService.getItem('searchText');
-    if ((typeof searchText === 'string') && (searchText.length) && (searchText !== this.searchText)) {
+    if ((typeof searchText === 'string') && (searchText.length > 0) && (searchText !== this.searchText)) {
       const encodedSearchText = encodeURI(searchText);
       const eventRoute: XxxEventRoute = {
         url: [environment.url.questions],
