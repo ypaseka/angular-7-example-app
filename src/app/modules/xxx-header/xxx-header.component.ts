@@ -1,7 +1,5 @@
-import {Component, OnDestroy} from '@angular/core';
-import {MediaChange, MediaObserver} from '@angular/flex-layout';
-import {Subscription} from 'rxjs';
-import {filter} from 'rxjs/operators';
+import {Component} from '@angular/core';
+import {MediaObserver} from '@angular/flex-layout';
 
 @Component({
   selector: 'xxx-header',
@@ -9,30 +7,7 @@ import {filter} from 'rxjs/operators';
   templateUrl: './xxx-header.component.html'
 })
 
-export class XxxHeaderComponent implements OnDestroy {
-  isMobileView: boolean;
-  private subscriptionMediaChange: Subscription;
-
+export class XxxHeaderComponent {
   constructor(public mediaObserver: MediaObserver) {
-    this.subscribeToMediaChange();
-  }
-
-  subscribeToMediaChange() {
-    const media$ = this.mediaObserver.asObservable().pipe(
-        filter((changes: MediaChange[]) => true)   // silly noop filter
-    );
-    this.subscriptionMediaChange = media$.subscribe((changes: MediaChange[]) => {
-      let isFound = false;
-      changes.forEach(change => {
-        if (!isFound) {
-          isFound = (change.mqAlias === 'xs');
-        }
-      });
-      this.isMobileView = isFound;
-    });
-  }
-
-  ngOnDestroy() {
-    this.subscriptionMediaChange.unsubscribe();
   }
 }
