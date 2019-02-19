@@ -1,4 +1,4 @@
-import {fakeAsync, flush, TestBed} from '@angular/core/testing';
+import {fakeAsync, TestBed, tick} from '@angular/core/testing';
 
 import {MockXxxEventMgrService} from '../../library/xxx-event-mgr/mock-xxx-event-mgr.service';
 import {MockXxxStateStoreService} from '../../library/xxx-state-store/mock-xxx-state-store.service';
@@ -17,6 +17,10 @@ describe('XxxStackExchangeSearchService', () => {
   let xxxStackExchangeSearchService: XxxStackExchangeSearchService;
   let xxxStateStoreService: XxxStateStoreService;
 
+  function createService() {
+    xxxStackExchangeSearchService = TestBed.get(XxxStackExchangeSearchService);
+  }
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
@@ -31,7 +35,6 @@ describe('XxxStackExchangeSearchService', () => {
   beforeEach(() => {
     xxxEventMgrService = TestBed.get(XxxEventMgrService);
     xxxMessageService = TestBed.get(XxxMessageService);
-    xxxStackExchangeSearchService = TestBed.get(XxxStackExchangeSearchService);
     xxxStateStoreService = TestBed.get(XxxStateStoreService);
     spyEventMgrHandleEvent = spyOn(xxxEventMgrService, 'handleEvent');
     // state store needs to return different value each time for these tests
@@ -40,15 +43,26 @@ describe('XxxStackExchangeSearchService', () => {
   });
 
   it('should create service', () => {
+    createService();
     expect(xxxStackExchangeSearchService).toBeDefined();
   });
 
   it('should run state store and event mgr services when message broadcasts search text change', fakeAsync(() => {
+    createService();
     const mockMessage = new XxxMessage('searchTextChange');
     xxxMessageService.broadcast(mockMessage);
-    flush();
+    tick();
     expect(spyStateStoreGetItem).toHaveBeenCalled();
     expect(spyStateStorePutItem).toHaveBeenCalled();
     expect(spyEventMgrHandleEvent).toHaveBeenCalled();
+  }));
+
+  it('should handle missing search text from state', fakeAsync(() => {
+    spyStateStoreGetItem.and.returnValue(undefined);
+    createService();
+    const mockMessage = new XxxMessage('searchTextChange');
+    xxxMessageService.broadcast(mockMessage);
+    tick();
+    expect(spyEventMgrHandleEvent).not.toHaveBeenCalled();
   }));
 });
