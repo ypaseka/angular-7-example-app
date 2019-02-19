@@ -8,7 +8,7 @@ import {XxxMessageService} from '../../library/xxx-message/xxx-message.service';
 import {XxxStateStoreService} from '../../library/xxx-state-store/xxx-state-store.service';
 
 /**
- * Subscribes to message from search box, routes to stack exchange questions view
+ * Subscribes to search text changed message, generates and stores route, triggers route event.
  */
 @Injectable()
 export class XxxStackExchangeSearchService {
