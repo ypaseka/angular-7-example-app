@@ -1,8 +1,7 @@
 import {ErrorHandler, NgModule} from '@angular/core';
 
-import {XxxAlertModule} from '../xxx-alert/xxx-alert.module';
+import {XxxAlertModule, XxxLogModule} from '../../library';
 import {XxxErrorHandler} from './xxx-error-handler.service';
-import {XxxLogModule} from '../xxx-log/xxx-log.module';
 
 @NgModule({
   imports: [

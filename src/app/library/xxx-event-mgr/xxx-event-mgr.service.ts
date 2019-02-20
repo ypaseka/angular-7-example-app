@@ -2,11 +2,8 @@ import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 
 import {environment} from '../../../environments/environment';
-import {XxxDataService} from '../xxx-data/xxx-data.service';
+import {XxxDataService, XxxMessage, XxxMessageService, XxxStateStoreService} from '../../library';
 import {XxxEventAction, XxxEventConfig, XxxEventRoute} from './xxx-event.interface';
-import {XxxMessage} from '../xxx-message/xxx-message';
-import {XxxMessageService} from '../xxx-message/xxx-message.service';
-import {XxxStateStoreService} from '../../library/xxx-state-store/xxx-state-store.service';
 
 @Injectable()
 export class XxxEventMgrService {

@@ -2,7 +2,7 @@ import {HTTP_INTERCEPTORS, HttpClient} from '@angular/common/http';
 import {HttpClientTestingModule, HttpTestingController, TestRequest} from '@angular/common/http/testing';
 import {fakeAsync, TestBed, tick} from '@angular/core/testing';
 
-import {XxxMessageService} from '../xxx-message/xxx-message.service';
+import {XxxMessageService} from '../../library';
 import {XxxDataResponseInterceptor} from './xxx-data-response-interceptor.service';
 
 describe('XxxDataResponseInterceptor', () => {

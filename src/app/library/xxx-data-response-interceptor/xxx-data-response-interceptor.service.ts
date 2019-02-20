@@ -3,9 +3,7 @@ import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest}
 import {Observable, throwError} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 // import {environment} from '../../../environments/environment';
-import {XxxAlertType} from '../xxx-alert/xxx-alert.enum';
-import {XxxMessage} from '../xxx-message/xxx-message';
-import {XxxMessageService} from '../xxx-message/xxx-message.service';
+import {XxxAlertType, XxxMessage, XxxMessageService} from '../../library';
 
 @Injectable()
 export class XxxDataResponseInterceptor implements HttpInterceptor {

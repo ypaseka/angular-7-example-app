@@ -1,10 +1,7 @@
 import {TestBed} from '@angular/core/testing';
 
-import {MockXxxAlertService} from '../xxx-alert/mock-xxx-alert.service';
-import {MockXxxLogService} from '../xxx-log/mock-xxx-log.service';
-import {XxxAlertService} from '../xxx-alert/xxx-alert.service';
+import {MockXxxAlertService, MockXxxLogService, XxxAlertService, XxxLogService} from '../../library';
 import {XxxErrorHandler} from './xxx-error-handler.service';
-import {XxxLogService} from '../xxx-log/xxx-log.service';
 
 class XxxLogEntry {
   constructor(message: string, level: any) {
