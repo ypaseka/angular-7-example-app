@@ -80,6 +80,10 @@
           "options": {
             "codeCoverage": true,
             "codeCoverageExclude": [
+              "src/*",
+              "src/environments/*",
+              "**/index.ts",
+              "**/test.ts",
               "src/mocks/**/*",
               "**/mock*"
             ],
