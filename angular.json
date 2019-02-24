@@ -84,6 +84,7 @@
               "src/environments/*",
               "**/index.ts",
               "**/test.ts",
+              "**/*.module.ts",
               "src/mocks/**/*",
               "**/mock*"
             ],
