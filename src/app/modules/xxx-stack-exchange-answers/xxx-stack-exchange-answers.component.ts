@@ -3,11 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 
 import {environment} from '../../../environments/environment';
-import {XxxAlertService} from '../../library/xxx-alert/xxx-alert.service';
-import {XxxAlertType} from '../../library/xxx-alert/xxx-alert.enum';
-import {XxxDataService} from '../../library/xxx-data/xxx-data.service';
-import {XxxEventMgrService} from '../../library/xxx-event-mgr/xxx-event-mgr.service';
-import {XxxStateStoreService} from '../../library/xxx-state-store/xxx-state-store.service';
+import {XxxAlertService, XxxAlertType, XxxDataService, XxxEventMgrService, XxxStateStoreService} from '../../xxx-common';
 
 @Component({
   selector: 'xxx-stack-exchange-answers',

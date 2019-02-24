@@ -2,7 +2,8 @@ import {async, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {Router} from '@angular/router';
 import {RouterTestingModule} from '@angular/router/testing';
 
-import {MockXxxDataService, MockXxxStateStoreService, XxxDataService, XxxMessageService, XxxStateStoreService} from '../../library';
+import {MockXxxDataService, MockXxxStateStoreService} from '../test';
+import {XxxDataService, XxxMessageService, XxxStateStoreService} from '..';
 import {XxxEventRoute} from './xxx-event.interface';
 import {XxxEventMgrService} from './xxx-event-mgr.service';
 

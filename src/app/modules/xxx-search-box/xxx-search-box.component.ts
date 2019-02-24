@@ -1,11 +1,7 @@
 import {Component, OnDestroy} from '@angular/core';
 import {Subscription} from 'rxjs';
 
-import {
-  XxxEventMgrService,
-  XxxMessageService,
-  XxxStateStoreService
-} from '../../library';
+import {XxxEventMgrService, XxxMessageService, XxxStateStoreService} from '../../xxx-common';
 
 @Component({
   selector: 'xxx-search-box',

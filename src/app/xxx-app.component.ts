@@ -1,11 +1,7 @@
 import {Component, OnDestroy} from '@angular/core';
 import {Subscription} from 'rxjs';
 
-import {XxxAlertService} from './library/xxx-alert/xxx-alert.service';
-import {XxxErrorHandler} from './library/xxx-error-handler/xxx-error-handler.service';
-import {XxxLogEntry, XxxLogLevelEnum} from './library/xxx-log/xxx-log-entry';
-import {XxxLogService} from './library/xxx-log/xxx-log.service';
-import {XxxMessageService} from './library/xxx-message/xxx-message.service';
+import {XxxAlertService, XxxErrorHandler, XxxLogEntry, XxxLogLevelEnum, XxxLogService, XxxMessageService} from './xxx-common';
 import {XxxStackExchangeSearchService} from './modules/xxx-stack-exchange-search/xxx-stack-exchange-search.service';
 
 @Component({

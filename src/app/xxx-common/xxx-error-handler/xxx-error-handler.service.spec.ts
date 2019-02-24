@@ -1,6 +1,7 @@
 import {TestBed} from '@angular/core/testing';
 
-import {MockXxxAlertService, MockXxxLogService, XxxAlertService, XxxLogService} from '../../library';
+import {MockXxxAlertService, MockXxxLogService} from '../test';
+import {XxxAlertService, XxxLogService} from '..';
 import {XxxErrorHandler} from './xxx-error-handler.service';
 
 class XxxLogEntry {

@@ -2,9 +2,8 @@ import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {MatButtonModule, MatIconModule} from '@angular/material';
 
-import {XxxEventMgrModule} from '../../library/xxx-event-mgr/xxx-event-mgr.module';
+import {XxxEventMgrModule, XxxStateStoreModule} from '../../xxx-common';
 import {XxxSearchBoxComponent} from './xxx-search-box.component';
-import {XxxStateStoreModule} from '../../library/xxx-state-store/xxx-state-store.module';
 
 @NgModule({
   declarations: [XxxSearchBoxComponent],

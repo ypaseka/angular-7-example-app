@@ -4,18 +4,18 @@ import {By} from '@angular/platform-browser';
 import {Router, Routes} from '@angular/router';
 import {RouterTestingModule} from '@angular/router/testing';
 
-import {MockXxxAlertService} from './library/xxx-alert/mock-xxx-alert.service';
-import {MockXxxErrorHandler} from './library/xxx-error-handler/mock-xxx-error-handler';
+import {MockXxxAlertService} from './xxx-common/xxx-alert/mock-xxx-alert.service';
+import {MockXxxErrorHandler} from './xxx-common/xxx-error-handler/mock-xxx-error-handler';
 import {MockXxxHeaderModule} from './modules/xxx-header/mock-xxx-header.module';
-import {MockXxxLogService} from './library/xxx-log/mock-xxx-log.service';
+import {MockXxxLogService} from './xxx-common/xxx-log/mock-xxx-log.service';
 import {MockXxxStackExchangeSearchService} from './modules/xxx-stack-exchange-search/mock-xxx-stack-exchange-search.service';
-import {XxxAlertService} from './library/xxx-alert/xxx-alert.service';
+import {XxxAlertService} from './xxx-common/xxx-alert/xxx-alert.service';
 import {XxxAppComponent} from './xxx-app.component';
-import {XxxErrorHandler} from './library/xxx-error-handler/xxx-error-handler.service';
+import {XxxErrorHandler} from './xxx-common/xxx-error-handler/xxx-error-handler.service';
 import {XxxHomeComponent} from './modules/xxx-home/mock-xxx-home.component';
-import {XxxLogService} from './library/xxx-log/xxx-log.service';
-import {XxxMessage} from './library/xxx-message/xxx-message';
-import {XxxMessageService} from './library/xxx-message/xxx-message.service';
+import {XxxLogService} from './xxx-common/xxx-log/xxx-log.service';
+import {XxxMessage} from './xxx-common/xxx-message/xxx-message';
+import {XxxMessageService} from './xxx-common/xxx-message/xxx-message.service';
 import {XxxStackExchangeSearchService} from './modules/xxx-stack-exchange-search/xxx-stack-exchange-search.service';
 import {XxxPageNotFoundComponent} from './modules/xxx-page-not-found/mock-xxx-page-not-found.component';
 

@@ -1,12 +1,8 @@
 import {fakeAsync, TestBed, tick} from '@angular/core/testing';
 
-import {MockXxxEventMgrService} from '../../library/xxx-event-mgr/mock-xxx-event-mgr.service';
-import {MockXxxStateStoreService} from '../../library/xxx-state-store/mock-xxx-state-store.service';
-import {XxxEventMgrService} from '../../library/xxx-event-mgr/xxx-event-mgr.service';
-import {XxxMessage} from '../../library/xxx-message/xxx-message';
-import {XxxMessageService} from '../../library/xxx-message/xxx-message.service';
+import {MockXxxEventMgrService, MockXxxStateStoreService} from '../../xxx-common/test';
+import {XxxEventMgrService, XxxMessage, XxxMessageService, XxxStateStoreService} from '../../xxx-common';
 import {XxxStackExchangeSearchService} from './xxx-stack-exchange-search.service';
-import {XxxStateStoreService} from '../../library/xxx-state-store/xxx-state-store.service';
 
 describe('XxxStackExchangeSearchService', () => {
   let spyEventMgrHandleEvent: jasmine.Spy;

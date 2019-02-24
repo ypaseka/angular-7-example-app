@@ -2,10 +2,7 @@ import {Injectable} from '@angular/core';
 import {Subscription} from 'rxjs';
 
 import {environment} from '../../../environments/environment';
-import {XxxEventMgrService} from '../../library/xxx-event-mgr/xxx-event-mgr.service';
-import {XxxEventRoute} from '../../library/xxx-event-mgr/xxx-event.interface';
-import {XxxMessageService} from '../../library/xxx-message/xxx-message.service';
-import {XxxStateStoreService} from '../../library/xxx-state-store/xxx-state-store.service';
+import {XxxEventMgrService, XxxEventRoute, XxxMessageService, XxxStateStoreService} from '../../xxx-common';
 
 /**
  * Subscribes to search text changed message, generates and stores route, triggers route event.

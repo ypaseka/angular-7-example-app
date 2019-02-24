@@ -1,6 +1,9 @@
 import {ErrorHandler, Injectable} from '@angular/core';
 
-import {XxxAlertService, XxxAlertType, XxxLogEntry, XxxLogService} from '../../library';
+import {XxxAlertService} from '../xxx-alert/xxx-alert.service';
+import {XxxAlertType} from '../xxx-alert/xxx-alert.enum';
+import {XxxLogEntry} from '../xxx-log/xxx-log-entry';
+import {XxxLogService} from '../xxx-log/xxx-log.service';
 
 @Injectable()
 export class XxxErrorHandler implements ErrorHandler {

@@ -8,17 +8,9 @@ import {Observable, of} from 'rxjs';
 
 import {environment} from '../../../environments/environment';
 import {MockActivatedRouteWithQueryParms, mockQueryParamPage, mockQueryParamTitle} from '../../../mocks/angular/mock-activated-route';
-import {MockXxxAlertService} from '../../library/xxx-alert/mock-xxx-alert.service';
-import {MockXxxDataService} from '../../library/xxx-data/mock-xxx-data.service';
-import {MockXxxEventMgrService} from '../../library/xxx-event-mgr/mock-xxx-event-mgr.service';
-import {MockXxxStateStoreService} from '../../library/xxx-state-store/mock-xxx-state-store.service';
-import {XxxAlertService} from '../../library/xxx-alert/xxx-alert.service';
-import {XxxAlertType} from '../../library/xxx-alert/xxx-alert.enum';
-import {XxxDataService} from '../../library/xxx-data/xxx-data.service';
-import {XxxEventMgrService} from '../../library/xxx-event-mgr/xxx-event-mgr.service';
-import {XxxEventRoute} from '../../library/xxx-event-mgr/xxx-event.interface';
+import {MockXxxAlertService, MockXxxDataService, MockXxxEventMgrService, MockXxxStateStoreService} from '../../xxx-common/test';
+import {XxxAlertService, XxxAlertType, XxxDataService, XxxEventMgrService, XxxEventRoute, XxxStateStoreService} from '../../xxx-common';
 import {XxxStackExchangeQuestionsComponent} from './xxx-stack-exchange-questions.component';
-import {XxxStateStoreService} from '../../library/xxx-state-store/xxx-state-store.service';
 
 describe('XxxStackExchangeQuestionsComponent', () => {
   let component: XxxStackExchangeQuestionsComponent;

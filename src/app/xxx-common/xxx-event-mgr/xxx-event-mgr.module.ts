@@ -1,7 +1,9 @@
 import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
 
-import {XxxDataModule, XxxEventMgrService, XxxMessageModule} from '../../library';
+import {XxxDataModule} from '../xxx-data/xxx-data.module';
+import {XxxMessageModule} from '../xxx-message/xxx-message.module';
+import {XxxEventMgrService} from './xxx-event-mgr.service';
 
 @NgModule({
   imports: [
