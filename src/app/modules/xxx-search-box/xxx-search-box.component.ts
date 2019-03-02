@@ -12,6 +12,7 @@ import {XxxEventMgrService, XxxMessageService, XxxStateStoreService} from '../..
 
 export class XxxSearchBoxComponent implements OnDestroy {
   isButtonDisabled = false;
+  isSearchTextNotChanged = true;
   searchText: string;
   subscriptionButtonEnable: Subscription;
   private lastSearchText: string = null;
@@ -25,6 +26,11 @@ export class XxxSearchBoxComponent implements OnDestroy {
     this.subscribeToMessages();
   }
 
+  onInputKeyUp() {
+    this.checkForChangedSearchText();
+    this.changeDetectorRef.detectChanges();
+  }
+
   onSearchClick() {
     this.lastSearchText = this.searchText;
     this.isButtonDisabled = true;
@@ -33,17 +39,18 @@ export class XxxSearchBoxComponent implements OnDestroy {
     this.xxxEventMgrService.handleEvent('searchBox.search');
   }
 
-  isSearchTextChanged(): boolean {
-    return this.searchText !== this.lastSearchText;
-  }
-
   ngOnDestroy(): void {
     this.subscriptionButtonEnable.unsubscribe();
+  }
+
+  private checkForChangedSearchText() {
+    this.isSearchTextNotChanged = (this.searchText === this.lastSearchText);
   }
 
   private subscribeToMessages() {
     this.subscriptionButtonEnable = this.xxxMessageService.subscribe('searchButtonEnable', () => {
       this.isButtonDisabled = false;
+      this.checkForChangedSearchText();
       this.changeDetectorRef.detectChanges();
     });
   }
