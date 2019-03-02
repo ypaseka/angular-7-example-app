@@ -1,4 +1,4 @@
-import {Component, OnDestroy} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 
@@ -6,6 +6,7 @@ import {environment} from '../../../environments/environment';
 import {XxxAlertService, XxxAlertType, XxxDataService, XxxEventMgrService, XxxStateStoreService} from '../../xxx-common';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'xxx-stack-exchange-answers',
   styleUrls: ['./xxx-stack-exchange-answers.component.scss'],
   templateUrl: './xxx-stack-exchange-answers.component.html'
@@ -24,6 +25,7 @@ export class XxxStackExchangeAnswersComponent implements OnDestroy {
 
   constructor(
       private route: ActivatedRoute,
+      private changeDetectorRef: ChangeDetectorRef,
       private router: Router,
       private xxxAlertService: XxxAlertService,
       private xxxDataService: XxxDataService,
@@ -128,11 +130,13 @@ export class XxxStackExchangeAnswersComponent implements OnDestroy {
       const warningMsg = 'No Answers Found For Given Question Id';
       this.xxxAlertService.openAlert(XxxAlertType.WARN, warningMsg);
     }
+    this.changeDetectorRef.detectChanges();
   }
 
   // Errors are handled by global interceptor.
   private onErrorGetAnswers(result) {
     this.isBusy = false;
     this.isError = true;
+    this.changeDetectorRef.detectChanges();
   }
 }

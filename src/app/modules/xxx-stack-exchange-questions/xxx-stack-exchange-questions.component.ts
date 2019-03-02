@@ -1,4 +1,4 @@
-import {Component, OnDestroy} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs';
 
@@ -8,7 +8,8 @@ import {XxxAlertService, XxxAlertType, XxxDataService, XxxEventMgrService, XxxEv
 @Component({
   selector: 'xxx-stack-exchange-questions',
   styleUrls: ['./xxx-stack-exchange-questions.component.scss'],
-  templateUrl: './xxx-stack-exchange-questions.component.html'
+  templateUrl: './xxx-stack-exchange-questions.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class XxxStackExchangeQuestionsComponent implements OnDestroy {
@@ -24,6 +25,7 @@ export class XxxStackExchangeQuestionsComponent implements OnDestroy {
 
   constructor(
       private route: ActivatedRoute,
+      private changeDetectorRef: ChangeDetectorRef,
       private xxxAlertService: XxxAlertService,
       private xxxDataService: XxxDataService,
       private xxxEventMgrService: XxxEventMgrService,
@@ -146,12 +148,14 @@ export class XxxStackExchangeQuestionsComponent implements OnDestroy {
         && (typeof result.has_more === 'boolean')
         && (result.has_more));
     this.searchDone();
+    this.changeDetectorRef.detectChanges();
   }
 
   // Errors are handled by global interceptor.
   private onErrorGetQuestions(result) {
     this.isBusy = false;
     this.isError = true;
+    this.changeDetectorRef.detectChanges();
     this.searchDone();
   }
 

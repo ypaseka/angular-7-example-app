@@ -1,9 +1,10 @@
-import {Component, OnDestroy} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy} from '@angular/core';
 import {Subscription} from 'rxjs';
 
 import {XxxEventMgrService, XxxMessageService, XxxStateStoreService} from '../../xxx-common';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'xxx-search-box',
   templateUrl: './xxx-search-box.component.html',
   styleUrls: ['./xxx-search-box.component.scss']
@@ -16,6 +17,7 @@ export class XxxSearchBoxComponent implements OnDestroy {
   private lastSearchText: string = null;
 
   constructor(
+      private changeDetectorRef: ChangeDetectorRef,
       private xxxEventMgrService: XxxEventMgrService,
       private xxxMessageService: XxxMessageService,
       private xxxStateStoreService: XxxStateStoreService
@@ -26,6 +28,7 @@ export class XxxSearchBoxComponent implements OnDestroy {
   onSearchClick() {
     this.lastSearchText = this.searchText;
     this.isButtonDisabled = true;
+    this.changeDetectorRef.detectChanges();
     this.xxxStateStoreService.putItem('searchText', this.searchText);
     this.xxxEventMgrService.handleEvent('searchBox.search');
   }
@@ -41,6 +44,7 @@ export class XxxSearchBoxComponent implements OnDestroy {
   private subscribeToMessages() {
     this.subscriptionButtonEnable = this.xxxMessageService.subscribe('searchButtonEnable', () => {
       this.isButtonDisabled = false;
+      this.changeDetectorRef.detectChanges();
     });
   }
 }

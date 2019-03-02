@@ -1,7 +1,8 @@
-import {Component, Inject} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Inject} from '@angular/core';
 import {MAT_SNACK_BAR_DATA, MatSnackBarRef} from '@angular/material';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'xxx-alert',
   styleUrls: ['./xxx-alert.component.scss'],
   templateUrl: './xxx-alert.component.html'
