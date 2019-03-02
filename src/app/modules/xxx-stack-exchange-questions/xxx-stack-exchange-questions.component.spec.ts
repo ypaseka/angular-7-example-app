@@ -27,7 +27,10 @@ describe('XxxStackExchangeQuestionsComponent', () => {
 
   const mockQuestionData = {
     items: [
-      {question_id: 'Q123'}
+      {
+        question_id: 'Q123',
+        title: 'test title'
+      }
     ],
     has_more: true
   };
