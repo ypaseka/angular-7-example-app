@@ -1,5 +1,5 @@
 <form #formcontrol="ngForm" (ngSubmit)="onSearchClick()">
-  <input [(ngModel)]="searchText" aria-level="enter search text" autofocus class="form-control xxx-search-box-input"
+  <input [(ngModel)]="searchText" aria-labelledby="enter search text" autofocus class="form-control xxx-search-box-input"
          name="searchText" (keyup)="onInputKeyUp()"
          placeholder="Enter Search Text" required="" type="search">
   <button class="xxx-search-box-button"
