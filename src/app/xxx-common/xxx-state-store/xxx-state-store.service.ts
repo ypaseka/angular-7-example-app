@@ -16,7 +16,9 @@ export class XxxStateStoreService {
    * @param key: unique id for item
    */
   deleteItem(key: string): void {
-    delete this.savedItems[key];
+    if (this.savedItems[key]) {
+      delete this.savedItems[key];
+    }
   }
 
   /**
@@ -25,7 +27,9 @@ export class XxxStateStoreService {
    */
   extractItem(key: string): any {
     const result = this.savedItems[key];
-    this.deleteItem(key);
+    if (result) {
+      this.deleteItem(key);
+    }
     return result;
   }
 
