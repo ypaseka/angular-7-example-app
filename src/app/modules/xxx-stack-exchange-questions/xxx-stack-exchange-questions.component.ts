@@ -39,6 +39,9 @@ export class XxxStackExchangeQuestionsComponent implements OnDestroy {
   }
 
   decodeHtmlEntities(text) {
+    if ((text === undefined) || (text === '')) {
+      return '';
+    }
     return text.replace(/&#(\d+);/g, function (match, dec) {
       return String.fromCharCode(dec);
     });

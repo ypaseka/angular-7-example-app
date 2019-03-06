@@ -28,8 +28,7 @@ describe('XxxStackExchangeQuestionsComponent', () => {
   const mockQuestionData = {
     items: [
       {
-        question_id: 'Q123',
-        title: 'test title'
+        question_id: 'Q123'
       }
     ],
     has_more: true
@@ -297,6 +296,14 @@ describe('XxxStackExchangeQuestionsComponent', () => {
     tick();
     const result = component.decodeHtmlEntities('&#62;');
     expect(result).toBe('>');
+  }));
+
+  it('should decode html entities on empty text', fakeAsync(() => {
+    let result: string;
+    createComponent();
+    tick();
+    result = component.decodeHtmlEntities('');
+    expect(result).toBe('');
   }));
 
   it('should run questionOnClick', fakeAsync(() => {

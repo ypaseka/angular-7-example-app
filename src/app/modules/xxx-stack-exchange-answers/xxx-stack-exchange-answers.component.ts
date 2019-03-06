@@ -40,7 +40,10 @@ export class XxxStackExchangeAnswersComponent implements OnDestroy {
     this.subscriptionRouteParam.unsubscribe();
   }
 
-  decodeHtmlEntities(text) {
+  decodeHtmlEntities(text: string): string {
+    if ((text === undefined) || (text === '')) {
+      return '';
+    }
     return text.replace(/&#(\d+);/g, function (match, dec) {
       return String.fromCharCode(dec);
     });
@@ -70,6 +73,7 @@ export class XxxStackExchangeAnswersComponent implements OnDestroy {
     this.isBusy = true;
     this.isResult = false;
     this.isError = false;
+    // this.changeDetectorRef.detectChanges();
     let url = environment.url.api;
     url += 'questions/';
     url += this.questionId;
@@ -89,6 +93,8 @@ export class XxxStackExchangeAnswersComponent implements OnDestroy {
       this.question = result.items[0];
       this.getAnswers();
     } else {
+      this.isBusy = false;
+      this.changeDetectorRef.detectChanges();
       const warningMsg = 'Given Question Id Not Found';
       this.xxxAlertService.openAlert(XxxAlertType.WARN, warningMsg);
     }
@@ -98,6 +104,7 @@ export class XxxStackExchangeAnswersComponent implements OnDestroy {
   private onErrorGetQuestion(result) {
     this.isBusy = false;
     this.isError = true;
+    this.changeDetectorRef.detectChanges();
   }
 
   private getAnswers() {
@@ -105,6 +112,7 @@ export class XxxStackExchangeAnswersComponent implements OnDestroy {
     this.isResult = false;
     this.isError = false;
     this.answers = [];
+    this.changeDetectorRef.detectChanges();
     let url = environment.url.api;
     url += 'questions/';
     url += this.questionId;
@@ -126,11 +134,12 @@ export class XxxStackExchangeAnswersComponent implements OnDestroy {
         && (result.items.length > 0)) {
       this.answers = result.items;
       this.isResult = true;
+      this.changeDetectorRef.detectChanges();
     } else {
+      this.changeDetectorRef.detectChanges();
       const warningMsg = 'No Answers Found For Given Question Id';
       this.xxxAlertService.openAlert(XxxAlertType.WARN, warningMsg);
     }
-    this.changeDetectorRef.detectChanges();
   }
 
   // Errors are handled by global interceptor.
