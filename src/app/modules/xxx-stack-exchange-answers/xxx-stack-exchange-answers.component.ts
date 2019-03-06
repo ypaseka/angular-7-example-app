@@ -78,6 +78,7 @@ export class XxxStackExchangeAnswersComponent implements OnDestroy {
     url += 'questions/';
     url += this.questionId;
     url += '?key=' + this.apiKey;
+    url += '&filter=withbody';
     url += '&order=desc';
     url += '&sort=activity';
     url += '&site=stackoverflow';
